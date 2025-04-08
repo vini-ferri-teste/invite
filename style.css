@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(339deg, rgb(241, 164, 198) 0%, rgb(127, 175, 230) 100%);
+    background-size: 400% 400%;
+    /* Aumenta o "campo" do gradiente */
+    animation: moverBackground 5s ease infinite;
+    position: relative;
+    flex-direction: column;
+}
+
+@keyframes moverBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.texto_principal {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: bolder;
+    padding: 40px;
+    color:aliceblue;
+    text-align: center;
+}
+
+.botao_centralizado {
+    display: flex;
+    gap: 1rem;
+    z-index: 1;
+}
+
+.programa {
+    font-style: italic;
+    color: #8c68e0;
+}
+
+button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background-color: #a18ef7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+#botaoFugitivo, #botaoConfete {
+    transition: background 0.3s ease, transform 0.3s ease; /* Transição mais rápida */
+  }
+  
+  #botaoFugitivo:hover,
+  #botaoFugitivo.hover {
+    background-color: #db5757;
+    transform: scale(1.00); /* Aumenta mais */
+  }
+
+  #botaoConfete:hover,
+  #botaoConfete.hover {
+    background-color: #3497d1;
+    transform: scale(1.00); /* Aumenta mais */
+  }
+
+a {
+    all: unset;
+    
+}
+
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: hsl(var(--hue), 70%, 50%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: explode 1s ease-out forwards;
+    z-index: 0;
+}
+
+@keyframes explode {
+    to {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+    }
+}

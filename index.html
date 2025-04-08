@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="texto_principal">
+            Quer uma consulta melhor do <span class="programa">programa?</span>
+    </div>
+
+    <div class="botao_centralizado">
+        <button id="botaoFugitivo"> Não, chatão</button>
+        <button id="botaoConfete"><a href="wa.me/47997848481">Sim, eu quero</a></button>
+    </div>
+
+    <script>
+        const botaoFugitivo = document.getElementById('botaoFugitivo');
+        const botaoConfete = document.getElementById('botaoConfete');
+
+        // Função para mover o botão fugitivo
+        function moverBotao(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const larguraJanela = window.innerWidth;
+            const alturaJanela = window.innerHeight;
+            const larguraBotao = botaoFugitivo.offsetWidth;
+            const alturaBotao = botaoFugitivo.offsetHeight;
+
+            botaoFugitivo.style.position = 'absolute';
+            botaoFugitivo.style.margin = 0;
+
+            const novaPosX = Math.random() * (larguraJanela - larguraBotao);
+            const novaPosY = Math.random() * (alturaJanela - alturaBotao);
+
+            botaoFugitivo.style.left = `${novaPosX}px`;
+            botaoFugitivo.style.top = `${novaPosY}px`;
+        }
+
+        function aplicarHover(botao) {
+  botao.classList.add('hover');
+  
+  // Mantém o efeito por mais tempo (tipo 500ms depois que soltar)
+  setTimeout(() => {
+    botao.classList.remove('hover');
+  }, 500); // duração maior (700ms)
+}
+
+botaoFugitivo.addEventListener('touchstart', () => aplicarHover(botaoFugitivo));
+botaoConfete.addEventListener('touchstart', () => aplicarHover(botaoConfete));
+
+        // Função para criar uma partícula de confete
+        function criarParticula(x, y) {
+            const particula = document.createElement('div');
+            particula.classList.add('particle');
+
+            const angle = Math.random() * 2 * Math.PI;
+            const distance = Math.random() * 150 + 50;
+
+            particula.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+            particula.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+            particula.style.setProperty('--hue', Math.floor(Math.random() * 360));
+
+            particula.style.left = `${x}px`;
+            particula.style.top = `${y}px`;
+
+            document.body.appendChild(particula);
+
+            setTimeout(() => {
+                particula.remove();
+            }, 1000);
+        }
+
+        // Função para soltar vários confetes
+        function soltarConfete() {
+            const rect = botaoConfete.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 30; i++) {
+                criarParticula(centerX, centerY);
+            }
+        }
+
+        // Se clicar no botão fugitivo, troca o fundo para vermelho
+        botaoFugitivo.addEventListener('click', () => {
+            document.body.style.background = 'linear-gradient(339deg, rgba(255,150,150,1) 0%, rgba(255,100,100,1) 100%)';
+            document.body.style.backgroundSize = '400% 400%';
+        });
+
+        // Eventos de fugir
+        botaoFugitivo.addEventListener('touchstart', moverBotao);
+        botaoFugitivo.addEventListener('mouseenter', moverBotao);
+
+        // Evento de soltar confete
+        botaoConfete.addEventListener('click', soltarConfete);
+
+
+    </script>
+
+
+</body>
+
+</html>
